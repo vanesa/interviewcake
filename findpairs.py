@@ -17,13 +17,12 @@ def findpairs(array, k):
             result.append((n, n))
             continue
         
-        n2 = k - n
-        
         if n in tracker.keys():
             
             for i2 in tracker[n]:
                 result.append((array[i2], n))
         
+        n2 = k - n
         if n2 in tracker.keys():
             tracker[n2].append(i)
             continue
