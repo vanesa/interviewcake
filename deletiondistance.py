@@ -30,6 +30,8 @@ Constraints:
 [output] integer
 """
 
+import unittest
+
 def deletion_distance(str1, str2):
   
   if str1 == str2:
@@ -56,5 +58,25 @@ def deletion_distance(str1, str2):
   
   return totalcount
 
-deletion_distance("asdfzzd","asdfwre")
+class Test(unittest.TestCase):
+  data = [(
+      ["asdfzzd","asdfwre"], 6
+    ),(
+      ["some","some"], 0
+    ), (
+      ["some", "thing"], 9
+    ), (
+      ["", ""], 0
+    ), (
+      ["", "hey"], 3
+    )
+  ]
+
+  def test_deletion_distance(self):
+    for [[str1, str2], expected] in self.data:
+      actual = deletion_distance(str1, str2)
+      self.assertEqual(actual, expected)
+
+if __name__ == '__main__':
+  unittest.main()
 
