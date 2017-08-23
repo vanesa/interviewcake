@@ -52,11 +52,12 @@ Constraints:
 """
 
 import sys
+import random
 
 def get_cheapest_cost(rootNode):
   
   if not rootNode.children:
-    print 'Node(' + str(rootNode.cost) + ') min_cost=' + str(rootNode.cost)
+    # print 'Node(' + str(rootNode.cost) + ') min_cost=' + str(rootNode.cost)
     return rootNode.cost
   
   min_cost=sys.maxsize
@@ -65,7 +66,7 @@ def get_cheapest_cost(rootNode):
     if path_cost < min_cost:
       min_cost = path_cost
       
-  print 'Node(' + str(rootNode.cost) + ') min_cost=' + str(min_cost + rootNode.cost)
+  # print 'Node(' + str(rootNode.cost) + ') min_cost=' + str(min_cost + rootNode.cost)
   
   return min_cost + rootNode.cost
 
@@ -81,25 +82,40 @@ class Node:
   def __repr__(self):
     return str(self.cost)
 
+def createTree(maxdepth=30, currentdepth=0):
+  cost = random.randint(0, 9)
+  children = []
+  if currentdepth < maxdepth and random.randint(0, 1):
+    x = random.randint(0, 3)
+    for num in xrange(x):
+      children.append(createTree(maxdepth=maxdepth, currentdepth=currentdepth+1))
 
-rootNode = Node(0, children=[
-  Node(5, children=[
-    Node(4),
-    ]),
-  Node(3, children=[
-    Node(2, children=[
-      Node(1, children=[
-        Node(1),
-      ]),
-    ]),
-    Node(0, children=[
-      Node(10),
-    ])
-  ]), 
-  Node(6, children=[
-    Node(1), 
-    Node(5),
-  ]),
-])
+  print cost
+  return Node(cost, children=children)
 
-print get_cheapest_cost(rootNode)
+
+# rootNode = Node(0, children=[
+#   Node(5, children=[
+#     Node(4),
+#     ]),
+#   Node(3, children=[
+#     Node(2, children=[
+#       Node(1, children=[
+#         Node(1),
+#       ]),
+#     ]),
+#     Node(0, children=[
+#       Node(10),
+#     ])
+#   ]), 
+#   Node(6, children=[
+#     Node(1), 
+#     Node(5),
+#   ]),
+# ])
+
+
+
+if __name__ == '__main__':
+  rootNode = createTree()
+  print 'cheapest: ', get_cheapest_cost(rootNode)
