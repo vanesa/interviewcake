@@ -43,6 +43,7 @@ The ASCII value of every char is in the range of lowercase letters a-z.
 [output] string
 
 """
+import unittest
 
 def decrypt(word):
   
@@ -59,5 +60,17 @@ def decrypt(word):
   
   return decrypted
 
-print decrypt('flgxswdliefy')
-print decrypt('dnotq')
+class Test(unittest.TestCase):
+  data = [
+  ('flgxswdliefy', 'encyclopedia'),
+  ('dnotq', 'crime')
+  ]
+
+  def test_decrypt(self):
+    for [case, expected] in self.data:
+      actual = decrypt(case)
+      self.assertEqual(actual, expected)
+
+
+if __name__ == '__main__':
+  unittest.main()
