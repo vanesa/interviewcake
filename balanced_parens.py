@@ -12,13 +12,6 @@ output: boolean which determines if the string contains balanced parentheses
 "[({})]" => True
 "[()[]{}]" => True
 "[](){}[({})][](){}" => True
-str1 = str1[:untilc] + str1[pairc:]
-
-set( ( [ {)
-
-it = [ [, (, ] ]
-
-parens: {'(' : ')', '[' : ']', '{' : '}'}
 
 """
 parens = {'(' : ')', '[' : ']', '{' : '}'}
@@ -31,8 +24,14 @@ def parens_balance(str1, parenDict):
     if str1[0] in parenDict.values():
         return False
     
+    valid_parens = set()
+
+    for k, v in parenDict.items():
+        valid_parens.add(k)
+        valid_parens.add(v)
+    
     for p in str1:
-        if p not in parenDict.items():
+        if p not in valid_parens:
             continue
         if p not in parenDict.values():
             tracker.append(p)
@@ -48,3 +47,4 @@ def parens_balance(str1, parenDict):
 
 if __name__ == '__main__':
     print parens_balance('[](){}[({})][](){}', parens)
+    print parens_balance('[(])', parens)
