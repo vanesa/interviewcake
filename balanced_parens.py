@@ -13,9 +13,10 @@ output: boolean which determines if the string contains balanced parentheses
 "[()[]{}]" => True
 "[](){}[({})][](){}" => True
 
-"""
-parens = {'(' : ')', '[' : ']', '{' : '}'}
+parens: {'(' : ')', '[' : ']', '{' : '}'}
 
+"""
+import unittest
 
 
 def parens_balance(str1, parenDict):
@@ -23,7 +24,7 @@ def parens_balance(str1, parenDict):
     
     if str1[0] in parenDict.values():
         return False
-    
+
     valid_parens = set()
 
     for k, v in parenDict.items():
@@ -45,6 +46,23 @@ def parens_balance(str1, parenDict):
         return False
     return True
 
+parens = {'(' : ')', '[' : ']', '{' : '}'}
+
+class Test(unittest.TestCase):
+    data = [
+            (["[](){}", parens], True),
+            (["[(])", parens], False),
+            (["[({})]", parens], True),
+            (["[()[]{}]", parens], True),
+            (["[](){}[({})][](){}", parens], True),
+            (["dfaa(a2222das)adcxa", parens], True),
+            ([")(", parens], False)
+        ]
+
+    def test_parens_balance(self):
+        for [[str1, parenDict], expected] in self.data:
+            actual = parens_balance(str1, parenDict)
+            self.assertEqual(actual, expected)
+
 if __name__ == '__main__':
-    print parens_balance('[](){}[({})][](){}', parens)
-    print parens_balance('[(])', parens)
+    unittest.main()
