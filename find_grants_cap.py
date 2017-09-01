@@ -1,3 +1,6 @@
+#!usr/bin/evn python
+# -*- coding: utf-8 -*-
+
 """
 PRAMP
 
@@ -30,6 +33,8 @@ Constraints:
 
 """
 
+import unittest
+
 def find_grants_cap(grantsArray, newBudget):
   
   grantsArray.sort(reverse=True)
@@ -38,7 +43,7 @@ def find_grants_cap(grantsArray, newBudget):
     
     if newBudget <=g:
       continue
-      
+
     if newBudget > g and newBudget > sum(grantsArray[i:]):
       av = (float(newBudget) - sum(grantsArray[i:]))/i
 
@@ -55,4 +60,26 @@ def find_grants_cap(grantsArray, newBudget):
       if av > g and i == len(grantsArray)-1:
         return av
 
-print find_grants_cap([2,100,50,120,167], 400)
+class Test(unittest.TestCase):
+  data = [(
+    [[2,4], 3], 1.5
+    ),(
+    [[2,4,6], 3], 1.0
+    ),(
+    [[2,100,50,120,167], 400], 128.0
+    ),(
+    [[2,100,50,120,1000], 190], 47.0
+    ),(
+    [[21,100,50,120,130,110], 140], 23.8
+    ),(
+    [[210,200,150,193,130,110,209,342,117], 1530], 211.0
+    )]
+
+  def test_find_grants_cap(self):
+
+    for [[case, budget], expected] in self.data:
+      actual = find_grants_cap(case, budget)
+      self.assertEqual(actual, expected)
+
+if __name__ == '__main__':
+  unittest.main()
