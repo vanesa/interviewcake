@@ -45,7 +45,7 @@ def deletion_distance(str1, str2):
   
   count = 0
   for i, c in enumerate(str1):
-    i2=str2.find(c)
+    i2 = str2.find(c)
     if i2 != -1:
       str2 = str2[:i2] + str2[i2+1:]
     else:
